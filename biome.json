@@ -21,6 +21,9 @@
       "suspicious": {
         "noAssignInExpressions": {
           "level": "off"
+        },
+        "noExplicitAny": {
+          "level": "off"
         }
       }
     }
