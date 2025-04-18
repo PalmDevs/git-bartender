@@ -1,0 +1,23 @@
+{
+  "name": "git-bartender",
+  "description": "Providing Git shortcuts as well as a drinking problem and occasional yelling.",
+  "bin": {
+    "gb": "./src/cli.ts",
+    "git-bartender": "./src/cli.ts"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "chalk-template": "^1.1.0",
+    "figures": "^6.1.0",
+    "simple-git": "^3.27.0"
+  },
+  "trustedDependencies": ["@biomejs/biome"]
+}
