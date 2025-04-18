@@ -34,8 +34,15 @@ const STRINGS = {
                 "I was feeling good, until moments ago. Guess who's back here ordering again.",
                 "The manual? Haven't you read it already?",
             ],
+            flagTip: chalkTemplate`And, a little tip that I can't forget to say: Run commands while passing {underline --help} to view help for those commands.`,
+            unknown: (cmd: string) =>
+                chalkTemplateStderr`I can assure you "{underline ${cmd}}" doesn't exist on the manual. So maybe try looking harder?`,
+            actionSpecific: (cmd: string) =>
+                chalkTemplate`So you want help for "{underline ${cmd}}"? Okay fine, here it is. Happy now?`,
             action: "Either way, here's the manual, on what you can order me to do.",
             description: 'Shows the manual, so I can deal with less bullshit from you.',
+            usagesHeader:
+                "And here's how to use the command, properly. Remember it, so I don't have to call out your bullshit next time.",
         },
         push: {
             description: 'Brave enough to finally show your code to the world, huh?',

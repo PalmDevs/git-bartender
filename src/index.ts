@@ -1,32 +1,25 @@
-import { closest, distance } from 'fastest-levenshtein'
 import { execute as executeUnknown } from './commands/[unknown]'
-import { command, commands, inverseCommandAliases } from './context'
+import { execute as executeHelp } from './commands/help'
+import { args, clearArgs, command, flags } from './context'
 import { string } from './strings'
-import { yesNoPrompt } from './utils'
+import { tryResolveCommand } from './utils'
 
 process.title = string('product.name')
 
 try {
-    let cmd = commands[command]
-    if (!cmd) {
-        const match = closest(
-            command,
-            Object.keys(commands).filter(c => !commands[c]!.hidden && !commands[c]!.uninvokable),
-        )
-
-        if (distance(command, match) <= 2) {
-            if (yesNoPrompt(string('generic.command.correctionConfirmation', inverseCommandAliases[match] ?? match)))
-                cmd = commands[match]
-            console.log('')
-        }
-    }
-
+    const { name: cmdName, cmd } = tryResolveCommand(command)
     if (!cmd) throw 'Command not found'
 
-    const { execute, uninvokable } = cmd!
-    if (uninvokable) throw 'Command not invokable'
+    if ('h' in flags || 'help' in flags) {
+        clearArgs()
+        args.push(cmdName)
+        await executeHelp()
+    } else {
+        const { execute, uninvokable } = cmd!
+        if (uninvokable) throw 'Command not invokable'
 
-    await execute()
+        await execute()
+    }
 } catch {
     await executeUnknown()
 }
