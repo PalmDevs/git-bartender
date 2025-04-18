@@ -1,6 +1,6 @@
 import { closest, distance } from 'fastest-levenshtein'
 import { execute as executeUnknown } from './commands/[unknown]'
-import { command, commands } from './context'
+import { command, commands, inverseCommandAliases } from './context'
 import { string } from './strings'
 import { yesNoPrompt } from './utils'
 
@@ -9,9 +9,14 @@ process.title = string('product.name')
 try {
     let cmd = commands[command]
     if (!cmd) {
-        const match = closest(command, Reflect.ownKeys(commands) as string[])
+        const match = closest(
+            command,
+            Object.keys(commands).filter(c => !commands[c]!.hidden && !commands[c]!.uninvokable),
+        )
+
         if (distance(command, match) <= 2) {
-            if (yesNoPrompt(string('generic.command.correctionConfirmation', match))) cmd = commands[match]
+            if (yesNoPrompt(string('generic.command.correctionConfirmation', inverseCommandAliases[match] ?? match)))
+                cmd = commands[match]
             console.log('')
         }
     }

@@ -17,8 +17,8 @@ export const execute = async () => {
     console.info(chalkTemplate`{${string('product.color.secondary')} ${string('product.description')}}`)
     console.log('')
 
-    const cmds = Reflect.ownKeys(commands)
-        .map(name => [name as string, commands[name as string]!] as const)
+    const cmds = Object.keys(commands)
+        .map(name => [name, commands[name]!] as const)
         .filter(([_, { hidden, uninvokable }]) => !hidden && !uninvokable)
 
     const cmdline = string('product.cmdline')
@@ -35,3 +35,5 @@ export const execute = async () => {
 }
 
 export const description = string('command.help.description')
+
+export const aliases = ['h']

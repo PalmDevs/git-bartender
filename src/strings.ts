@@ -38,6 +38,7 @@ const STRINGS = {
             description: 'Shows the manual, so I can deal with less bullshit from you.',
         },
         push: {
+            description: 'Brave enough to finally show your code to the world, huh?',
             pullFirst: chalkTemplate`Looks like ya {bold dumbass} forgot to pull changes before committin'. What do you want to do now?`,
             pullFirstSolutionMerge: "Merge 'em changes into another commit",
             pullFirstSolutionRebase: 'Rebase the changes and add your dumb shit on top',
