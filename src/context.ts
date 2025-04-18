@@ -36,7 +36,11 @@ export function fileNameToCommandName(fileName: string) {
 
 export const flags: Record<string, string | boolean> = {}
 export let command: string
-export const args: string[] = []
+export let args: string[] = []
+
+export function clearArgs() {
+    args = []
+}
 
 const cmdlineArgs = process.argv.slice(2)
 
