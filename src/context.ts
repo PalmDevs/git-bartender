@@ -44,16 +44,21 @@ for (let i = 0; i < cmdlineArgs.length; i++) {
     const carg = cmdlineArgs[i]!
 
     if (carg[0] === '-') {
-        const flag = carg.slice(carg[1] === '-' ? 2 : 1)
-        const next = cmdlineArgs[i + 1]
-        if (next) {
-            if (next[0] === '-') {
-                flags[flag] = true
-            } else {
-                flags[flag] = next
-                i++
-            }
-        } else flags[flag] = true
+        if (carg[1] === '-') {
+            const flag = carg.slice(2)
+            const next = cmdlineArgs[i + 1]
+            if (next) {
+                if (next[0] === '-') {
+                    flags[flag] = true
+                } else {
+                    flags[flag] = next
+                    i++
+                }
+            } else flags[flag] = true
+        } else {
+            const flagsToAdd = carg.slice(1)
+            for (const flag of flagsToAdd) flags[flag] = true
+        }
     } else if (command!) args.push(carg)
     else command = carg
 }
