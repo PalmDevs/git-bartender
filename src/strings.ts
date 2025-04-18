@@ -63,9 +63,13 @@ const STRINGS = {
             ],
         },
     },
-    placeholder: {
+    generic: {
         command: {
-            description: chalkTemplate`{italic (I have no idea what this command does)}`,
+            correctionConfirmation: (cmd: string) =>
+                chalkTemplate`Never heard someone pronounce it like that. Did you mean "{underline ${cmd}}"?`,
+            placeholder: {
+                description: chalkTemplate`{italic (I have no idea what this command does)}`,
+            },
         },
     },
 } as const satisfies {
@@ -80,9 +84,12 @@ const STRINGS = {
             tertiary: string
         }
     }
-    placeholder: {
+    generic: {
         command: {
-            description: string
+            correctionConfirmation: StringifableDynamic
+            placeholder: {
+                description: string
+            }
         }
     }
     command: Record<string, StringDict>
@@ -99,7 +106,7 @@ export type Stringifiable = string | StringifableDynamic
 export type RandomizableStringifiable = Array<Stringifiable>
 
 export function string<
-    P extends Paths<typeof STRINGS, 2>,
+    P extends Paths<typeof STRINGS, 3>,
     V extends PathValue<typeof STRINGS, P> = PathValue<typeof STRINGS, P>,
 >(
     path: P,

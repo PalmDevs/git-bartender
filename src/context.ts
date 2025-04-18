@@ -1,8 +1,31 @@
 import chalkTemplate from 'chalk-template'
 import figures from 'figures'
+import { readdirSync } from 'fs'
 import simpleGit from 'simple-git'
+import { string } from './strings'
 
 export const git = simpleGit(process.cwd())
+
+export interface Command {
+    description?: string
+    usages?: string[]
+    execute(): Promise<any>
+    hidden?: boolean
+    uninvokable?: boolean
+}
+
+export const commands = new Proxy({} as Record<string, Command>, {
+    get: (cache, prop: string) => {
+        try {
+            return (cache[prop] ??= require(`${import.meta.dir}/commands/${prop}.ts`))
+        } catch {}
+    },
+    ownKeys: () => readdirSync(`${import.meta.dir}/commands`).map(f => fileNameToCommandName(f)),
+})
+
+export function fileNameToCommandName(fileName: string) {
+    return fileName.replace(/\.[mc]?tsx?$/, '').toLowerCase()
+}
 
 export const flags: Record<string, string | boolean> = {}
 export let command: string
@@ -38,10 +61,16 @@ function loggablesToString(args: object[]) {
 
 export const logger = {
     info: (...args: any[]) =>
-        console.info(chalkTemplate`{cyanBright ${figures.pointerSmall} ${loggablesToString(args)}}`),
-    error: (...args: any[]) => console.error(chalkTemplate`{redBright ${figures.cross} ${loggablesToString(args)}}`),
+        console.info(
+            chalkTemplate`{${string('product.color.secondary')} ${figures.pointerSmall} ${loggablesToString(args)}}`,
+        ),
+    error: (...args: any[]) =>
+        console.error(chalkTemplate`{${string('product.color.primary')} ${figures.cross} ${loggablesToString(args)}}`),
     warn: (...args: any[]) => console.warn(chalkTemplate`{yellowBright ${figures.warning} ${loggablesToString(args)}}`),
-    debug: (...args: any[]) => console.debug(chalkTemplate`{gray ${figures.pointer} ${loggablesToString(args)}}`),
+    debug: (...args: any[]) =>
+        console.debug(
+            chalkTemplate`{${string('product.color.tertiary')} ${figures.pointer} ${loggablesToString(args)}}`,
+        ),
     log: (...args: any[]) => console.log(chalkTemplate`${loggablesToString(args)}`),
     success: (...args: any[]) => console.info(chalkTemplate`{greenBright ${figures.tick} ${loggablesToString(args)}}`),
 }
