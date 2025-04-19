@@ -1,7 +1,8 @@
 import chalkTemplate from 'chalk-template'
 import { closest, distance } from 'fastest-levenshtein'
-import { commands, inverseCommandAliases } from './context'
-import { string } from './strings'
+
+import { commands, inverseCommandAliases, logger } from '../context'
+import { string } from '../strings'
 
 export function prompt(question: string) {
     return globalThis.prompt(chalkTemplate`{cyanBright ${question}}`)
@@ -30,7 +31,7 @@ export function tryResolveCommand(command: string) {
 
         if (distance(command, match) <= 2) {
             if (yesNoPrompt(string('generic.command.correctionConfirmation', name!))) cmd = commands[match]
-            console.log('')
+            logger.newline()
         }
     } else name = inverseCommandAliases[command] ?? command
 

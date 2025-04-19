@@ -14,18 +14,6 @@ const STRINGS = {
         },
     },
     command: {
-        pet: {
-            description: 'Petting me? Seriously?',
-            warning: [
-                "What the fuck? No. Don't do that again.",
-                "My claws are sharp, and I ain't your fuckin' pet. So don't ever, do that again.",
-                'Roses are red. Violets are blue. You see this middle finger? It is for you.',
-                '...',
-                "Don't touch me.",
-                "Stop it. I'm not paid enough to deal with this bullshit.",
-                "Do that again, I fuckin' dare you.",
-            ],
-        },
         help: {
             greet: [
                 'Ugh, here we go again.',
@@ -44,12 +32,45 @@ const STRINGS = {
             usagesHeader:
                 "And here's how to use the command, properly. Remember it, so I don't have to call out your bullshit next time.",
         },
+        ignore: {
+            viewHeader: 'Here are the files you are ignoring. Nice job, I guess.',
+            description: 'Ignore your files, like ignoring your problems.',
+            noArgs: 'You want to ignore what, exactly?',
+            noFiles: chalkTemplate`{italic (No ignored files, great job. I guess you have no problems.)}`,
+            action: [
+                "Alright, but you sure about this? I mean, I don't care, but you might want to think about it.",
+                'Ignoring files is like ignoring your problems. It never works out. But hey, who am I to judge?',
+                "Now that that's done, why don't you just ignore my existence too, as well?",
+                "Done. I don't care about your files. I only care about my paycheck.",
+            ],
+            dupe: (pattern: string) =>
+                chalkTemplateStderr`${pattern} is already ignored. Can't ignore something twice, can you?`,
+        },
+        pet: {
+            description: 'Petting me? Seriously?',
+            warning: [
+                "What the fuck? No. Don't do that again.",
+                "My claws are sharp, and I ain't your fuckin' pet. So don't ever, do that again.",
+                'Roses are red. Violets are blue. You see this middle finger? It is for you.',
+                '...',
+                "Don't touch me.",
+                "Stop it. I'm not paid enough to deal with this bullshit.",
+                "Do that again, I fuckin' dare you.",
+            ],
+        },
         push: {
             description: 'Brave enough to finally show your code to the world, huh?',
             pullFirst: chalkTemplate`Looks like ya {bold dumbass} forgot to pull changes before committin'. What do you want to do now?`,
             pullFirstSolutionMerge: "Merge 'em changes into another commit",
             pullFirstSolutionRebase: 'Rebase the changes and add your dumb shit on top',
             pullFirstSolutionForcePush: "Be an fuckin' asshole and force push your changes",
+        },
+        unignore: {
+            description: 'Unignoring your problems now? Good for you.',
+            noArgs: 'You want to unignore what, exactly?',
+            noMatch: (pattern: string) =>
+                chalkTemplateStderr`${pattern} is not ignored. Can't unignore something that doesn't exist, can you?`,
+            action: 'Finally, you decided to face your problems. Good for you.',
         },
         '[unknown]': {
             hint: [
