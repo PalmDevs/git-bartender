@@ -1,6 +1,6 @@
 import { execute as executeUnknown } from './commands/[unknown]'
 import { execute as executeHelp } from './commands/help'
-import { args, clearArgs, command, flags } from './context'
+import { args, clearArgs, clearFlags, command, flags } from './context'
 import { string } from './strings'
 import { tryResolveCommand } from './utils'
 
@@ -12,6 +12,7 @@ try {
 
     if ('h' in flags || 'help' in flags) {
         clearArgs()
+        clearFlags()
         args.push(cmdName)
         await executeHelp()
     } else {
@@ -20,6 +21,7 @@ try {
 
         await execute()
     }
-} catch {
-    await executeUnknown()
+} catch (e) {
+    if (typeof e === 'string') await executeUnknown()
+    else throw e
 }
