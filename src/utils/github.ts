@@ -14,7 +14,7 @@ export async function openGitHubPullRequest(
     )
 }
 
-export async function gitHubRepoOwnerAndNameFromUrl(remote: string) {
+export async function gitHubRepoOwnerAndNameFromRemote(remote: string) {
     const remoteResult = await $`git config --get remote.${remote}.url`.nothrow().quiet()
     if (remoteResult.exitCode) return []
 
@@ -27,4 +27,26 @@ export async function gitHubRepoOwnerAndNameFromUrl(remote: string) {
     if (!owner || !repoName) return []
 
     return [owner, repoName] as const
+}
+
+export async function openGitHubActions(
+    owner: string,
+    repo: string,
+    options: Partial<{
+        workflow: string
+        branch: string
+    }> = {},
+) {
+    if (options.workflow && !options.workflow.match(/\.ya?ml$/)) options.workflow += '.yml'
+    console.log(options.workflow)
+    const url = new URL(
+        `http://github.com/${owner}/${repo}/actions${options.workflow ? `/workflows/${options.workflow}` : ''}`,
+    )
+
+    let query = ''
+    if (options.branch) query += `branch:${options.branch} `
+
+    url.searchParams.set('query', query)
+
+    return open(url.toString())
 }

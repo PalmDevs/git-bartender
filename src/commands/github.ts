@@ -1,7 +1,7 @@
 import { execute as executeHelp } from './help'
 import { string } from '../strings'
-import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
-import { gitHubRepoOwnerAndNameFromUrl, openGitHubPullRequest } from '../utils/github'
+import { args, clearArgs, clearFlags, flags, logger, setExitCode } from '../context'
+import { gitHubRepoOwnerAndNameFromRemote, openGitHubActions, openGitHubPullRequest } from '../utils/github'
 import {
     getActiveBranch,
     getBranchRemote,
@@ -30,7 +30,42 @@ export const execute = async () => {
         case 'pr':
         case 'pull-request':
             return await pullRequest()
+
+        case 'a':
+        case 'action':
+        case 'actions':
+            return await actions()
     }
+}
+
+function preferFirstString(...items: any[]) {
+    return items.find(it => typeof it === 'string' && it)
+}
+
+async function actions() {
+    const [workflow] = args.slice(1)
+    const branchFlag = flags.branch ?? flags.b
+    const activeBranch = await getActiveBranch()
+    const branch = branchFlag === true ? activeBranch : preferFirstString(flags.branch, flags.b)
+
+    if (!activeBranch && !branch) {
+        logger.error(string('command.github.noActiveLocalBranch'))
+        return setExitCode(1)
+    }
+
+    const remote = await getBranchRemote(branch ?? activeBranch)
+
+    if (!remote) {
+        logger.error(string('command.github.noLocalBranchRemote'))
+        return setExitCode(1)
+    }
+
+    const [owner, repo] = await gitHubRepoOwnerAndNameFromRemote(remote)
+
+    openGitHubActions(owner, repo, {
+        branch,
+        workflow,
+    })
 }
 
 async function pullRequest() {
@@ -115,13 +150,13 @@ async function pullRequest() {
         return setExitCode(1)
     }
 
-    const [targetOwner, targetName] = await gitHubRepoOwnerAndNameFromUrl(targetRemote)
+    const [targetOwner, targetName] = await gitHubRepoOwnerAndNameFromRemote(targetRemote)
     if (!targetOwner) {
         logger.error(string('command.github.notGitHubRemote', targetRemote))
         return setExitCode(1)
     }
 
-    const [fromOwner, fromName] = await gitHubRepoOwnerAndNameFromUrl(fromRemote)
+    const [fromOwner, fromName] = await gitHubRepoOwnerAndNameFromRemote(fromRemote)
     if (!fromOwner) {
         logger.error(string('command.github.notGitHubRemote', fromRemote))
         return setExitCode(1)
@@ -142,6 +177,10 @@ export const usages = [
     'pr|pull-request <target_branch>',
     'pr|pull-request <target_remote>/[target_branch]',
     'pr|pull-request <target_remote>/[target_branch]:<from_remote>/[from_branch]',
+    'a|action|actions',
+    'a|action|actions [workflow]',
+    'a|action|actions [workflow] --branch [branch]',
+    'a|action|actions [workflow] -b [branch]',
 ]
 
 export const examples = [
