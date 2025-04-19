@@ -6,9 +6,11 @@ import { tryResolveCommand } from './utils'
 
 process.title = string('product.name')
 
+let ignorable: string
+
 try {
     const { name: cmdName, cmd } = tryResolveCommand(command)
-    if (!cmd) throw 'Command not found'
+    if (!cmd) throw (ignorable = 'Command not found')
 
     if ('h' in flags || 'help' in flags) {
         clearArgs()
@@ -17,11 +19,11 @@ try {
         await executeHelp()
     } else {
         const { execute, uninvokable } = cmd!
-        if (uninvokable) throw 'Command not invokable'
+        if (uninvokable) throw (ignorable = 'Command not invokable')
 
         await execute()
     }
 } catch (e) {
-    if (typeof e === 'string') await executeUnknown()
+    if (ignorable!) await executeUnknown()
     else throw e
 }
