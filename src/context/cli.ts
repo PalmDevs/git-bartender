@@ -16,6 +16,8 @@ for (let i = 0; i < cmdlineArgs.length; i++) {
     const carg = cmdlineArgs[i]!
 
     if (carg[0] === '-') {
+        // --test -> { test: true }
+        // --test "value" -> { test: "value" }
         if (carg[1] === '-') {
             const flag = carg.slice(2)
             const next = cmdlineArgs[i + 1]
@@ -29,7 +31,20 @@ for (let i = 0; i < cmdlineArgs.length; i++) {
             } else flags[flag] = true
         } else {
             const flagsToAdd = carg.slice(1)
-            for (const flag of flagsToAdd) flags[flag] = true
+            // -abc -> { a: true, b: true, c: true }
+            if (flagsToAdd.length > 1) for (const flag of flagsToAdd) flags[flag] = true
+            // -m "test" -> { m: "test" }
+            else {
+                const next = cmdlineArgs[i + 1]
+                if (next) {
+                    if (next[0] === '-') {
+                        flags[flagsToAdd] = true
+                    } else {
+                        flags[flagsToAdd] = next
+                        i++
+                    }
+                } else flags[flagsToAdd] = true
+            }
         }
     } else if (command!) args.push(carg)
     else command = carg
