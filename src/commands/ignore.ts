@@ -28,6 +28,8 @@ export const execute = async () => {
 
 export const description = string('command.ignore.description')
 
+export const aliases = ['i']
+
 export const usages = ['[...patterns]']
 
 async function ignore(pattern: string) {

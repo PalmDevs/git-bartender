@@ -20,6 +20,8 @@ export const execute = async () => {
 
 export const description = string('command.unignore.description')
 
+export const aliases = ['u']
+
 export const usages = ['[...patterns]']
 
 async function unignore(pattern: string) {
