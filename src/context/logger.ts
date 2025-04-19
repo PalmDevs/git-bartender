@@ -20,4 +20,5 @@ export const logger = {
         ),
     log: (...args: any[]) => console.log(chalkTemplate`${loggablesToString(args)}`),
     success: (...args: any[]) => console.info(chalkTemplate`{greenBright ${figures.tick} ${loggablesToString(args)}}`),
+    newline: () => console.log(''),
 }

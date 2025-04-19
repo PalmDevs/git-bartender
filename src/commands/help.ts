@@ -19,7 +19,7 @@ export const execute = async () => {
         }
 
         logger.info(string('command.help.actionSpecific', name))
-        console.log('')
+        logger.newline()
 
         const prefix = chalkTemplate`{bold {${string('product.color.secondary')} ${cmdline} {${string('product.color.tertiary')} ${name}}}}`
 
@@ -27,7 +27,7 @@ export const execute = async () => {
 
         if (cmd.usages) {
             logger.info(string('command.help.usagesHeader'))
-            console.log('')
+            logger.newline()
 
             for (const usage of cmd.usages) {
                 console.info(`${prefix} ${usage}`)
@@ -39,12 +39,12 @@ export const execute = async () => {
 
     logger.info(string('command.help.action'))
 
-    console.log('')
+    logger.newline()
     console.info(
         chalkTemplate`{bold {${string('product.color.primary')} ${string('product.name')}}} • v${string('product.version')}`,
     )
     console.info(chalkTemplate`{${string('product.color.secondary')} ${string('product.description')}}`)
-    console.log('')
+    logger.newline()
 
     const cmds = Object.keys(commands)
         .map(name => [name, commands[name]!] as const)
@@ -63,7 +63,7 @@ export const execute = async () => {
         )
     }
 
-    console.log('')
+    logger.newline()
     logger.info(string('command.help.flagTip'))
 }
 
