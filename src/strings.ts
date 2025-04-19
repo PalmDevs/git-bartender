@@ -14,6 +14,22 @@ const STRINGS = {
         },
     },
     command: {
+        github: {
+            description: 'Orders related to the Hub- shit. Walked myself right into that one.',
+            noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
+            actionPr: (tb: string, tr: string, fb: string, fr: string) =>
+                chalkTemplate`Alright, fine. Making a PR: ${tr}/${tb} <- ${fr}/${fb}.`,
+            noActiveLocalBranch: 'Are you not on a branch? What are you doing?',
+            noLocalBranch: (branch: string) =>
+                chalkTemplateStderr`Sorry, as a raccoon with usable eyes, that local branch "{underline ${branch}}" doesn't fuckin' exist!`,
+            noRemote: (remote: string) =>
+                chalkTemplateStderr`The remote "{underline ${remote}}" doesn't exist! Wow, it's almost like you suck at this.`,
+            noLocalBranchRemote: "The specified branch doesn't seem to be tracking any remotes.",
+            noFromRemoteBranch: "Did you forget to push? 'cause it seems like the remote branch ain't there.",
+            noTargetBranch: 'The target branch is definitely NOT there. Nice job. I had to check for you.',
+            notGitHubRemote: (remote: string) =>
+                chalkTemplateStderr`You're expecting a GitHub command to work on the remote "{underline ${remote}}", which is a non-GitHub remote. Are you stupid?`,
+        },
         help: {
             greet: [
                 'Ugh, here we go again.',
@@ -45,6 +61,14 @@ const STRINGS = {
             ],
             dupe: (pattern: string) =>
                 chalkTemplateStderr`${pattern} is already ignored. Can't ignore something twice, can you?`,
+        },
+        list: {
+            description: 'Lists your files, and maybe your insecurities.',
+            noArgs: 'So what do you want me to list exactly?',
+            stagedHeader: "And here are the files you're going to commit. Nice job, I guess.",
+            globHeader: (glob: string[]) => `Filter: ${glob.join(', ')}`,
+            noGlob: 'You want to list the files in what, exactly?',
+            noFiles: 'Ha! No files. I knew it.',
         },
         pet: {
             description: 'Petting me? Seriously?',
@@ -93,6 +117,11 @@ const STRINGS = {
         },
     },
     generic: {
+        error: [
+            "Ugh, something went wrong. I don't know what, but it's definitely not my fault.",
+            "You gotta be shittin' me. Well, something exploded back there.",
+            "Looks like it ain't workin' out. Last time I tried again, I got into deeper shit.",
+        ],
         command: {
             correctionConfirmation: (cmd: string) =>
                 chalkTemplate`Never heard someone pronounce it like that. Did you mean "{underline ${cmd}}"?`,
@@ -114,6 +143,7 @@ const STRINGS = {
         }
     }
     generic: {
+        error: RandomizableStringifiable
         command: {
             correctionConfirmation: StringifableDynamic
             placeholder: {
