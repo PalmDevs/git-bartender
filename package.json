@@ -18,7 +18,8 @@
     "chalk": "^5.4.1",
     "chalk-template": "^1.1.0",
     "fastest-levenshtein": "^1.0.16",
-    "figures": "^6.1.0"
+    "figures": "^6.1.0",
+    "open": "^10.1.1"
   },
   "trustedDependencies": ["@biomejs/biome"]
 }
