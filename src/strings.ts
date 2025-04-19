@@ -18,15 +18,21 @@ const STRINGS = {
             description: 'Orders related to the Hub- shit. Walked myself right into that one.',
             noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
             actionPr: (tb: string, tr: string, fb: string, fr: string) =>
-                chalkTemplate`Alright, fine. Making a PR: ${tr}/${tb} <- ${fr}/${fb}.`,
-            noActiveLocalBranch: 'Are you not on a branch? What are you doing?',
+                chalkTemplate`Fine. Making a PR ${tr}/${tb} <- ${fr}/${fb}. Hope it gets closed, or a ton conflicts.`,
+            noActiveLocalBranch: [
+                'Are you not on a branch? What are you doing?',
+                "I haven't been trained to deal with this. No active brach?",
+            ],
             noLocalBranch: (branch: string) =>
-                chalkTemplateStderr`Sorry, as a raccoon with usable eyes, that local branch "{underline ${branch}}" doesn't fuckin' exist!`,
+                chalkTemplateStderr`Sorry, as a raccoon with usable eyes, the local branch "{underline ${branch}}" doesn't fuckin' exist!`,
             noRemote: (remote: string) =>
                 chalkTemplateStderr`The remote "{underline ${remote}}" doesn't exist! Wow, it's almost like you suck at this.`,
-            noLocalBranchRemote: "The specified branch doesn't seem to be tracking any remotes.",
+            noLocalBranchRemote: "The active branch ain't set to track anything..., yeah nice.",
             noFromRemoteBranch: "Did you forget to push? 'cause it seems like the remote branch ain't there.",
-            noTargetBranch: 'The target branch is definitely NOT there. Nice job. I had to check for you.',
+            noTargetBranch: [
+                "Target branch doesn't exist. Just like my hope for a change.",
+                "Target branch ain't there.",
+            ],
             notGitHubRemote: (remote: string) =>
                 chalkTemplateStderr`You're expecting a GitHub command to work on the remote "{underline ${remote}}", which is a non-GitHub remote. Are you stupid?`,
         },
@@ -38,26 +44,31 @@ const STRINGS = {
                 "I was feeling good, until moments ago. Guess who's back here ordering again.",
                 "The manual? Haven't you read it already?",
             ],
-            flagTip: chalkTemplate`And, a little tip that I can't forget to say: Run commands while passing {underline --help} to view help for those commands.`,
-            unknown: (cmd: string) =>
-                chalkTemplateStderr`I can assure you "{underline ${cmd}}" doesn't exist on the manual. So maybe try looking harder?`,
+            flagTip: chalkTemplate`And, a tip that I can't forget to say: Run commands while passing {underline --help} to view help for those commands.`,
+            unknown: [
+                (cmd: string) =>
+                    chalkTemplateStderr`I can assure you "{underline ${cmd}}" doesn't exist on the manual. So maybe try looking harder?`,
+                (cmd: string) => chalkTemplateStderr`Last time I checked, "{underline ${cmd}}" was not on the menu.`,
+            ],
             actionSpecific: (cmd: string) =>
                 chalkTemplate`So you want help for "{underline ${cmd}}"? Okay fine, here it is. Happy now?`,
-            action: "Either way, here's the manual, on what you can order me to do.",
+            action: [
+                "Here you go. Hoping you won't need it again, I don't want to clean up the dust on it for you.",
+                "Either way, here's the manual, on what you can order me to do.",
+            ],
             description: 'Shows the manual, so I can deal with less bullshit from you.',
             usagesHeader:
                 "And here's how to use the command, properly. Remember it, so I don't have to call out your bullshit next time.",
         },
         ignore: {
-            viewHeader: 'Here are the files you are ignoring. Nice job, I guess.',
+            viewHeader: 'Here are the files you are ignoring. Good job, you finally remembered.',
             description: 'Ignore your files, like ignoring your problems.',
-            noArgs: 'You want to ignore what, exactly?',
             noFiles: chalkTemplate`{italic (No ignored files, great job. I guess you have no problems.)}`,
             action: [
                 "Alright, but you sure about this? I mean, I don't care, but you might want to think about it.",
                 'Ignoring files is like ignoring your problems. It never works out. But hey, who am I to judge?',
                 "Now that that's done, why don't you just ignore my existence too, as well?",
-                "Done. I don't care about your files. I only care about my paycheck.",
+                "Hopefully you won't forget about these files. Not like it's my problem anyways.",
             ],
             dupe: (pattern: string) =>
                 chalkTemplateStderr`${pattern} is already ignored. Can't ignore something twice, can you?`,
@@ -91,10 +102,13 @@ const STRINGS = {
         },
         unignore: {
             description: 'Unignoring your problems now? Good for you.',
-            noArgs: 'You want to unignore what, exactly?',
+            noArgs: ['You want to unignore what, exactly?', 'So, what am I supposed to unignore?'],
             noMatch: (pattern: string) =>
                 chalkTemplateStderr`${pattern} is not ignored. Can't unignore something that doesn't exist, can you?`,
-            action: 'Finally, you decided to face your problems. Good for you.',
+            action: [
+                'Finally decided to face your problems, huh? Good for you.',
+                'Done. I wish I could stop ignoring my problems and fix them.',
+            ],
         },
         '[unknown]': {
             hint: [
@@ -119,7 +133,7 @@ const STRINGS = {
     generic: {
         error: [
             "Ugh, something went wrong. I don't know what, but it's definitely not my fault.",
-            "You gotta be shittin' me. Well, something exploded back there.",
+            "You gotta be shittin' me. Well, somethin' exploded back there.",
             "Looks like it ain't workin' out. Last time I tried again, I got into deeper shit.",
         ],
         command: {
