@@ -1,6 +1,6 @@
 import { execute as executeUnknown } from './commands/[unknown]'
 import { execute as executeHelp } from './commands/help'
-import { args, clearArgs, clearFlags, command, commands, flags, logger } from './context'
+import { args, clearArgs, clearFlags, command, commands, flags, logger, setExitCode } from './context'
 import { string } from './strings'
 import { tryResolveCommand } from './utils'
 
@@ -12,6 +12,12 @@ async function gitBartender() {
     logger.debug('All commands:', commands)
 
     try {
+        if (!command) {
+            setExitCode(1)
+            await executeHelp()
+            return
+        }
+
         logger.debug(`Command: ${command}, Args: ${JSON.stringify(args)}, Flags: ${JSON.stringify(flags)}`)
 
         const { name: cmdName, cmd } = tryResolveCommand(command)
