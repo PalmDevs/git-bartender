@@ -1,40 +1,75 @@
 import { execute as executeUnknown } from './commands/[unknown]'
 import { execute as executeHelp } from './commands/help'
-import { args, clearArgs, clearFlags, command, flags, logger } from './context'
+import { args, clearArgs, clearFlags, command, commands, flags, logger } from './context'
 import { string } from './strings'
 import { tryResolveCommand } from './utils'
 
-process.title = string('product.name')
+async function gitBartender() {
+    process.title = string('product.name')
 
-let ignorable: string
+    let ignorable: string
 
-try {
-    logger.debug(`Command: ${command}, Args: ${JSON.stringify(args)}, Flags: ${JSON.stringify(flags)}`)
+    logger.debug('All commands:', commands)
 
-    const { name: cmdName, cmd } = tryResolveCommand(command)
-    if (!cmd) throw (ignorable = 'Command not found')
+    try {
+        logger.debug(`Command: ${command}, Args: ${JSON.stringify(args)}, Flags: ${JSON.stringify(flags)}`)
 
-    logger.debug(`Resolved command: ${cmdName}`)
-    logger.debug('Command object:', cmd)
+        const { name: cmdName, cmd } = tryResolveCommand(command)
+        if (!cmd) throw (ignorable = 'Command not found')
 
-    if ('h' in flags || 'help' in flags) {
-        logger.debug('User requested help via flags')
+        logger.debug(`Resolved command: ${cmdName}`)
+        logger.debug('Command object:', cmd)
 
-        clearArgs()
-        clearFlags()
-        args.push(cmdName)
-        await executeHelp()
-    } else {
-        const { execute, uninvokable } = cmd!
+        const { execute, uninvokable, subcommands } = cmd!
         if (uninvokable) throw (ignorable = 'Command not invokable')
 
+        const scmd = args[0]
+        if (subcommands && scmd) {
+            logger.debug(`User specified subcommand: ${scmd}`)
+
+            const { name: scmdName, cmd: subcommand } = tryResolveCommand(`${cmdName}/${scmd}`)
+            if (subcommand) {
+                if (flags.help || flags.h) {
+                    logger.debug('User requested subcommand help via flags')
+
+                    clearArgs()
+                    clearFlags()
+                    args.push(scmdName)
+                    await executeHelp()
+
+                    return
+                }
+
+                logger.debug(`Invoking subcommand ${scmd} of ${cmdName}`)
+                logger.debug('Subcommand object:', subcommand)
+
+                args.shift()
+                await subcommand.execute()
+
+                return
+            }
+        }
+
+        if (flags.help || flags.h) {
+            logger.debug('User requested command help via flags')
+
+            clearArgs()
+            clearFlags()
+            args.push(cmdName)
+            await executeHelp()
+
+            return
+        }
+
         await execute()
-    }
-} catch (e) {
-    logger.debug(`Caught error (ignorable = ${Boolean(ignorable!)}):`, e)
-    if (ignorable!) await executeUnknown()
-    else {
-        logger.error(string('generic.error'))
-        console.error(e)
+    } catch (e) {
+        logger.debug(`Caught error (ignorable = ${Boolean(ignorable!)}):`, e)
+        if (ignorable!) await executeUnknown()
+        else {
+            logger.error(string('generic.error'))
+            console.error(e)
+        }
     }
 }
+
+await gitBartender()

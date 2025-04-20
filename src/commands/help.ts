@@ -4,41 +4,12 @@ import { string } from '../strings'
 import { tryResolveCommand } from '../utils'
 
 export const execute = async () => {
-    const cmdline = string('product.cmdline')
-
     logger.info(string('command.help.greet'))
 
     const [command] = args
-
-    if (command) {
-        const { name, cmd } = tryResolveCommand(command)
-
-        if (!cmd) {
-            logger.error(string('command.help.unknown', command))
-            return setExitCode(1)
-        }
-
-        logger.info(string('command.help.actionSpecific', name))
-        logger.newline()
-
-        const prefix = chalkTemplate`{bold {${string('product.color.secondary')} ${cmdline} {${string('product.color.tertiary')} ${name}}}}`
-
-        console.info(`${prefix}\n${cmd.description ?? string('generic.command.placeholder.description')}\n`)
-
-        if (cmd.usages) {
-            logger.info(string('command.help.usagesHeader'))
-            logger.newline()
-
-            for (const usage of cmd.usages) {
-                console.info(`${prefix} ${usage}`)
-            }
-        }
-
-        return
-    }
+    if (command) return commandHelp(command)
 
     logger.info(string('command.help.action'))
-
     logger.newline()
     console.info(
         chalkTemplate`{bold {${string('product.color.primary')} ${string('product.name')}}} • v${string('product.version')}`,
@@ -56,7 +27,7 @@ export const execute = async () => {
         if (name in inverseCommandAliases) continue
 
         const paddingRight = longestCmdName - name.length + 2
-        const prefix = chalkTemplate`{bold {${string('product.color.secondary')} ${cmdline} {${string('product.color.tertiary')} ${name}}}}`
+        const prefix = genPrefix(name)
 
         console.info(
             `${prefix}${' '.repeat(paddingRight)}${description ?? string('generic.command.placeholder.description')}`,
@@ -65,6 +36,64 @@ export const execute = async () => {
 
     logger.newline()
     logger.info(string('command.help.flagTip'))
+}
+
+function commandHelp(command: string) {
+    const { name, cmd } = tryResolveCommand(command)
+
+    if (!cmd) {
+        logger.error(string('command.help.unknown', command))
+        return setExitCode(1)
+    }
+
+    const actualName = name.replaceAll('/', ' ')
+    const prefix = genPrefix(actualName)
+
+    logger.info(string('command.help.actionSpecific', actualName))
+    logger.newline()
+
+    console.info(`${prefix}\n${cmd.description ?? string('generic.command.placeholder.description')}`)
+    logger.newline()
+
+    if (cmd.aliases) {
+        logger.info(string('command.help.aliasesHeader'))
+        console.info(cmd.aliases.join(', '))
+        logger.newline()
+    }
+
+    if (cmd.subcommands) {
+        logger.info(string('command.help.subcommandsHeader'))
+        logger.newline()
+
+        const scmds = Object.entries(cmd.subcommands).filter(([_, { hidden, uninvokable }]) => !hidden && !uninvokable)
+
+        const longestScmdName = scmds.reduce((acc, [name]) => (name.length > acc ? name.length : acc), 0)
+
+        for (const [sname, { description }] of scmds) {
+            const paddingRight = longestScmdName - sname.length + 2
+            const sprefix = chalkTemplate`${prefix} {${string('product.color.tertiary')} ${sname}}}`
+
+            console.info(
+                `${sprefix}${' '.repeat(paddingRight)}${description ?? string('generic.command.placeholder.description')}`,
+            )
+        }
+    }
+
+    if (cmd.usages) {
+        logger.info(string('command.help.usagesHeader'))
+        logger.newline()
+
+        for (const usage of cmd.usages) console.info(`${prefix} ${usage}`)
+    }
+
+    // TODO: Add examples support
+
+    return
+}
+
+function genPrefix(name: string) {
+    const cmdline = string('product.cmdline')
+    return chalkTemplate`{bold {${string('product.color.secondary')} ${cmdline} {${string('product.color.tertiary')} ${name}}}}`
 }
 
 export const description = string('command.help.description')

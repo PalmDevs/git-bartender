@@ -1,4 +1,4 @@
-import { readdirSync } from 'fs'
+import { readdirSync, statSync } from 'fs'
 
 export interface Command {
     description?: string
@@ -7,20 +7,41 @@ export interface Command {
     execute(): Promise<any>
     hidden?: boolean
     uninvokable?: boolean
+    subcommands?: Record<string, Command>
+    examples?: [string, string][]
 }
 
 export const commands = {} as Record<string, Command>
 export const inverseCommandAliases = {} as Record<string, string>
 
-for (const f of readdirSync(`${import.meta.dir}/../commands`)) {
-    const name = fileNameToCommandName(f)
-    const cmd = require(`${import.meta.dir}/../commands/${f}`) as Command
+const COMMAND_DIR = `${import.meta.dir}/../commands`
+
+for (const node of readdirSync(COMMAND_DIR)) {
+    if (statSync(`${COMMAND_DIR}/${node}`).isDirectory()) continue
+
+    const name = fileNameToCommandName(node)
+    const cmd = require(`${COMMAND_DIR}/${node}`) as Command
     commands[name] = cmd
 
     if (cmd.aliases)
         for (const alias of cmd.aliases) {
             inverseCommandAliases[alias] = name
             commands[alias] = cmd
+        }
+
+    if (cmd.subcommands)
+        for (const [subName, subCmd] of Object.entries(cmd.subcommands)) {
+            const fullName = `${name}/${subName}`
+            commands[fullName] = subCmd
+
+            if (subCmd.aliases)
+                for (const alias of subCmd.aliases) {
+                    const fullAlias = `${name}/${alias}`
+                    inverseCommandAliases[fullAlias] = fullName
+                    commands[fullAlias] = subCmd
+                }
+
+            if (subCmd.subcommands) throw new Error('Subcommands of subcommands are currently not supported')
         }
 }
 

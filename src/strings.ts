@@ -15,8 +15,11 @@ const STRINGS = {
     },
     command: {
         github: {
-            description: 'Orders related to the Hub- shit. Walked myself right into that one.',
+            description: 'Things related to the Hub- shit. Walked myself right into that one.',
+            pullRequestDescription: 'Open a pull request. What did you expect?',
+            actionsDescription: 'Just pushed your changes? Want to watch the deployment fail?',
             noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
+            invalidSubcommand: "That doesn't exist on the menu. Try again.",
             actionPr: (tb: string, tr: string, fb: string, fr: string) =>
                 chalkTemplate`Fine. Making a PR ${tr}/${tb} <- ${fr}/${fb}. Hope it gets closed, or a ton conflicts.`,
             noActiveLocalBranch: [
@@ -44,6 +47,7 @@ const STRINGS = {
                 "I was feeling good, until moments ago. Guess who's back here ordering again.",
                 "The manual? Haven't you read it already?",
             ],
+            aliasesHeader: 'And here are the aliases.',
             flagTip: chalkTemplate`And, a tip that I can't forget to say: Run commands while passing {underline --help} to view help for those commands.`,
             unknown: [
                 (cmd: string) =>
@@ -57,8 +61,10 @@ const STRINGS = {
                 "Either way, here's the manual, on what you can order me to do.",
             ],
             description: 'Shows the manual, so I can deal with less bullshit from you.',
+            subcommandsHeader: 'And here are the subcommands.',
             usagesHeader:
                 "And here's how to use the command, properly. Remember it, so I don't have to call out your bullshit next time.",
+            examplesHeader: "Some examples, if you don't have the brain to read the usage syntax.",
         },
         ignore: {
             viewHeader: 'Here are the files you are ignoring. Good job, you finally remembered.',
