@@ -1,5 +1,5 @@
 import chalkTemplate from 'chalk-template'
-import { args, commands, inverseCommandAliases, logger, setExitCode } from '../context'
+import { args, commands, isCommandAlias, isSubcommand, logger, setExitCode, type Command } from '../context'
 import { string } from '../strings'
 import { tryResolveCommand } from '../utils'
 
@@ -7,8 +7,15 @@ export const execute = async () => {
     logger.info(string('command.help.greet'))
 
     const [command] = args
-    if (command) return commandHelp(command)
+    if (command) specificCommandHelp(command)
+    else generalHelp()
+}
 
+function commandCanBeShownInGeneralHelp([name, { hidden, uninvokable }]: readonly [string, Command]) {
+    return !hidden && !uninvokable && !isCommandAlias(name) && !isSubcommand(name)
+}
+
+function generalHelp() {
     logger.info(string('command.help.action'))
     logger.newline()
     console.info(
@@ -19,14 +26,12 @@ export const execute = async () => {
 
     const cmds = Object.keys(commands)
         .map(name => [name, commands[name]!] as const)
-        .filter(([_, { hidden, uninvokable }]) => !hidden && !uninvokable)
+        .filter(commandCanBeShownInGeneralHelp)
 
-    const longestCmdName = cmds.reduce((acc, [name]) => (name.length > acc ? name.length : acc), 0)
+    const longestName = cmds.reduce((acc, [name]) => (name.length > acc ? name.length : acc), 0)
 
     for (const [name, { description }] of cmds) {
-        if (name in inverseCommandAliases) continue
-
-        const paddingRight = longestCmdName - name.length + 2
+        const paddingRight = longestName - name.length + 2
         const prefix = genPrefix(name)
 
         console.info(
@@ -38,7 +43,7 @@ export const execute = async () => {
     logger.info(string('command.help.flagTip'))
 }
 
-function commandHelp(command: string) {
+function specificCommandHelp(command: string) {
     const { name, cmd } = tryResolveCommand(command)
 
     if (!cmd) {
