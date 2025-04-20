@@ -76,7 +76,7 @@ function specificCommandHelp(command: string) {
 
         for (const [sname, { description }] of scmds) {
             const paddingRight = longestScmdName - sname.length + 2
-            const sprefix = chalkTemplate`${prefix} {${string('product.color.tertiary')} ${sname}}}`
+            const sprefix = chalkTemplate`${prefix} {${string('product.color.tertiary')} ${sname}}`
 
             console.info(
                 `${sprefix}${' '.repeat(paddingRight)}${description ?? string('generic.command.placeholder.description')}`,
