@@ -23,7 +23,9 @@ export const execute = async () => {
 
     const [owner, repo] = await gitHubRepoOwnerAndNameFromRemote(remote)
 
-    openGitHubActions(owner, repo, {
+    logger.info(string('command.github.actionActions', owner, repo))
+
+    await openGitHubActions(owner, repo, {
         branch,
         workflow,
     })

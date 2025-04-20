@@ -38,7 +38,7 @@ export async function openGitHubActions(
     }> = {},
 ) {
     if (options.workflow && !options.workflow.match(/\.ya?ml$/)) options.workflow += '.yml'
-    console.log(options.workflow)
+
     const url = new URL(
         `http://github.com/${owner}/${repo}/actions${options.workflow ? `/workflows/${options.workflow}` : ''}`,
     )

@@ -22,6 +22,8 @@ const STRINGS = {
             invalidSubcommand: "That doesn't exist on the menu. Try again.",
             actionPr: (tb: string, tr: string, fb: string, fr: string) =>
                 chalkTemplate`Fine. Making a PR ${tr}/${tb} <- ${fr}/${fb}. Hope it gets closed, or a ton conflicts.`,
+            actionActions: (owner: string, repo: string) =>
+                chalkTemplate`Opening Actions page for ${owner}/${repo}. Hope your workflows fail.`,
             noActiveLocalBranch: [
                 'Are you not on a branch? What are you doing?',
                 "I haven't been trained to deal with this. No active brach?",
