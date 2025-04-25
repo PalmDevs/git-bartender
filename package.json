@@ -1,6 +1,6 @@
 {
   "name": "git-bartender",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Providing Git shortcuts as well as a drinking problem and occasional yelling.",
   "bin": {
     "git-bartender": "./src/cli.ts",
