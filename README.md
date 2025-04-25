@@ -3,7 +3,7 @@
 <p align="center">Providing Git shortcuts as well as a drinking problem and occasional yelling.</p>
 <p align="center">
 A Git CLI wrapper that provides shortcuts for useful Git commands you'd usually forget after searching.<br>
-Mix and match arguments like picking what to add in your drinks. The bartender will <i>probably</i> get them right for you.
+As long as something looks enough like a command, the bartender will <i>probably</i> get it right for you, so be as drunk as you'd like!
 </p>
 
 # ⬇️ Installation
@@ -25,4 +25,27 @@ Mix and match arguments like picking what to add in your drinks. The bartender w
 
 # 🍹 Usage
 
-Documentation are coming soon.
+| Command                 | Description                                                                  | Aliases                | Usage/Examples                                                                                                   |
+| ----------------------- | ---------------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| help                    | Shows the manual, so I can deal with less bullshit from you.                 | h                      | `gb help`  <br> `gb help [command]` <br> `gb help [alias]`                                                        |
+| abort                   | What ya mom should've done years ago. Aborts a stuck process.                | ab                     | `gb abort`                                                                                                       |
+| discard                 | Wasted time on something that didn't work?                                   | explode, dc            | `gb discard`                                                                                                     |
+| github                  | Things related to the Hub- shit. Walked myself right into that one.          | gh                     | `gb github <subcommand>`                                                                                         |
+| github actions          | Just pushed your changes? Want to watch the deployment fail?                 | a, action              | `gb github actions` <br> `gb github actions [workflow]` <br> `gb github actions [workflow] --branch [branch]` <br> `gb github actions [workflow] -b [branch]` |
+| github pull-request     | Open a pull request. What did you expect?                                    | pr, pullrequest        | `gb github pull-request` <br> `gb github pull-request <target_branch>` <br> `gb github pull-request <target_remote>/[target_branch]` <br> `gb github pull-request <target_remote>/[target_branch]:<from_remote>/[from_branch]` <br> <br>**Examples:** <br> `gb github pull-request dev` <br> `gb github pull-request upstream/main` <br> `gb github pull-request dev:staging` <br> `gb github pull-request dev:upstream/main` <br> `gb github pull-request /main:upstream/` |
+| ignore                  | Ignore your files, like ignoring your problems.                              | i                      | `gb ignore [...patterns]` <br> `gb ignore` (view ignored files)                                                 |
+| pet                     | Petting me? Seriously?                                                       |                        | `gb pet`                                                                                                         |
+| unignore                | Unignoring your problems now? Good for you.                                  | u                      | `gb unignore [...patterns]`                                                                                      |
+| undo                    | Uncommits your commits because you have commitment issues.                   | ud                     | `gb undo [amount]`                                                                                               |
+| unstage                 | Did you fuckin' stage .env? Remove that!                                     | unadd, !add            | `gb unstage [...files]`                                                                                           |
+
+# ⏱️ Future Plans
+
+- Add `gb github actions Owner/Repo` (notice `Owner/Repo`)
+- Make `gb help` show examples
+- Auto-correcting arguments like branch names passed into `gb github pull-request`
+- Add `gb continue` (to continue whatever operation you're stuck on)
+- Add `gb list` (lists files based on predefined filters)
+- Add `gb push` (pushes with attempts to fix when it fails)
+- Add `gb pull` (pulls with attempts to fix when it fails)
+- Add `gb add` (`git add` with staging certain ranges, but you type it all out instead of doing it in interactive staging)
