@@ -108,6 +108,10 @@ const STRINGS = {
             pullFirstSolutionRebase: 'Rebase the changes and add your dumb shit on top',
             pullFirstSolutionForcePush: "Be an fuckin' asshole and force push your changes",
         },
+        undo: {
+            action: (amount: number) => `Uncommited the last ${amount} commits. Stop having commitment issues.`,
+            description: 'Uncommits your commits because you have commitment issues.',
+        },
         unignore: {
             description: 'Unignoring your problems now? Good for you.',
             noArgs: ['You want to unignore what, exactly?', 'So, what am I supposed to unignore?'],
