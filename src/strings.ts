@@ -14,6 +14,18 @@ const STRINGS = {
         },
     },
     command: {
+        abort: {
+            description: `What ya mom should've done years ago. Aborts a stuck process.`,
+            action: {
+                merge: 'Aborted the merge. Conflicts much?',
+                rebase: 'Aborted the rebase. I guess the conflicts were too much for you, hah.',
+                cherryPick: 'Aborted the cherry-pick. Did you pick the wrong cherry?',
+                revert: 'Aborted the revert. Revert of a revert... Do you have commitment issues?',
+                bisect: 'Reset the bisect. What were you bisecting?',
+                applyPatch: "Aborted the apply-patch. Guess the patch didn't work?",
+            },
+            notStuck: "You ain't stuck. What are you trying to abort?",
+        },
         discard: {
             description: "Wasted time on something that didn't work?",
             action: [
