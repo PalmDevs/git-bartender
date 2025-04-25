@@ -14,6 +14,14 @@ const STRINGS = {
         },
     },
     command: {
+        discard: {
+            description: "Wasted time on something that didn't work?",
+            action: [
+                'Why did you waste so much time on that?',
+                'You really thought that solution would work?',
+                "Let's be real, you knew it was a bad idea.",
+            ],
+        },
         github: {
             description: 'Things related to the Hub- shit. Walked myself right into that one.',
             pullRequestDescription: 'Open a pull request. What did you expect?',
