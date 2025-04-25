@@ -9,7 +9,7 @@ export const execute = async () => {
     logger.newline()
 
     await $`git log --pretty="[%h] %an: %s" -${amount} HEAD`
-    await $`git reset --soft HEAD~${amount}`
+    await $`git reset --soft HEAD~${amount}`.quiet()
 }
 
 export const description = string('command.undo.description')
