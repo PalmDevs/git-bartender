@@ -24,14 +24,18 @@ const STRINGS = {
         },
         github: {
             description: 'Things related to the Hub- shit. Walked myself right into that one.',
-            pullRequestDescription: 'Open a pull request. What did you expect?',
-            actionsDescription: 'Just pushed your changes? Want to watch the deployment fail?',
+            pullRequest: {
+                description: 'Open a pull request. What did you expect?',
+                action: (tb: string, tr: string, fb: string, fr: string) =>
+                    chalkTemplate`Fine. Making a PR ${tr}/${tb} <- ${fr}/${fb}. Hope it gets closed, or a ton conflicts.`,
+            },
+            actions: {
+                description: 'Just pushed your changes? Want to watch the deployment fail?',
+                action: (owner: string, repo: string) =>
+                    chalkTemplate`Opening Actions page for ${owner}/${repo}. Hope your workflows fail.`,
+            },
             noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
             invalidSubcommand: "That doesn't exist on the menu. Try again.",
-            actionPr: (tb: string, tr: string, fb: string, fr: string) =>
-                chalkTemplate`Fine. Making a PR ${tr}/${tb} <- ${fr}/${fb}. Hope it gets closed, or a ton conflicts.`,
-            actionActions: (owner: string, repo: string) =>
-                chalkTemplate`Opening Actions page for ${owner}/${repo}. Hope your workflows fail.`,
             noActiveLocalBranch: [
                 'Are you not on a branch? What are you doing?',
                 "I haven't been trained to deal with this. No active brach?",
@@ -197,7 +201,10 @@ const STRINGS = {
 // like: never ?? never => never
 type NeverCoalesce<T, Y> = [T] extends [never] ? Y : T
 
-export type StringDict = Record<string, Stringifiable | RandomizableStringifiable>
+export interface StringDict {
+    [key: string]: Stringifiable | RandomizableStringifiable | StringDict
+}
+
 export type StringifableDynamic = (...args: any[]) => string
 export type Stringifiable = string | StringifableDynamic
 export type RandomizableStringifiable = Array<Stringifiable>

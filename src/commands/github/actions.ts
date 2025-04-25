@@ -23,7 +23,7 @@ export const execute = async () => {
 
     const [owner, repo] = await gitHubRepoOwnerAndNameFromRemote(remote)
 
-    logger.info(string('command.github.actionActions', owner, repo))
+    logger.info(string('command.github.actions.action', owner, repo))
 
     await openGitHubActions(owner, repo, {
         branch,
@@ -35,7 +35,7 @@ function preferFirstString(...items: any[]) {
     return items.find(it => typeof it === 'string' && it)
 }
 
-export const description = string('command.github.actionsDescription')
+export const description = string('command.github.actions.description')
 
 export const aliases = ['a', 'action']
 

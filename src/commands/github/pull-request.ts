@@ -105,12 +105,12 @@ export const execute = async () => {
     }
 
     logger.debug(`PR @ ${targetOwner}/${targetName}:${targetBranch} <- ${fromOwner}/${fromName}:${fromBranch}`)
-    logger.info(string('command.github.actionPr', targetBranch, targetRemote, fromBranch, fromRemote))
+    logger.info(string('command.github.pullRequest.action', targetBranch, targetRemote, fromBranch, fromRemote))
 
     await openGitHubPullRequest(targetOwner, targetName, targetBranch, fromOwner, fromName, fromBranch)
 }
 
-export const description = string('command.github.pullRequestDescription')
+export const description = string('command.github.pullRequest.description')
 
 export const aliases = ['pr', 'pullrequest']
 
