@@ -130,6 +130,10 @@ const STRINGS = {
                 'Done. I wish I could stop ignoring my problems and fix them.',
             ],
         },
+        unstage: {
+            action: "Pushed them off the stage. Sure hope files can't get hurt.",
+            description: "Did you fuckin' stage .env? Remove that!",
+        },
         '[unknown]': {
             hint: [
                 chalkTemplate`You want a manual or something? Run the {underline help} command then.`,
