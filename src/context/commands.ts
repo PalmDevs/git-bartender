@@ -1,4 +1,5 @@
 import { readdirSync, statSync } from 'fs'
+import { logger } from './logger'
 
 export interface Command {
     description?: string
@@ -26,6 +27,7 @@ for (const node of readdirSync(COMMAND_DIR)) {
 
     if (cmd.aliases)
         for (const alias of cmd.aliases) {
+            if (inverseCommandAliases[alias]) logger.warn(`Duplicate alias: ${alias}`)
             inverseCommandAliases[alias] = name
             commands[alias] = cmd
         }
@@ -38,6 +40,7 @@ for (const node of readdirSync(COMMAND_DIR)) {
             if (subCmd.aliases)
                 for (const alias of subCmd.aliases) {
                     const fullAlias = `${name}${SUBCOMMAND_DELIMITER}${alias}`
+                    if (inverseCommandAliases[fullAlias]) logger.warn(`Duplicate subcommand alias: ${fullAlias}`)
                     inverseCommandAliases[fullAlias] = fullName
                     commands[fullAlias] = subCmd
                 }
