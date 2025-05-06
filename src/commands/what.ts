@@ -2,7 +2,7 @@ import { execute as executeHelp } from './help'
 import { string } from '../strings'
 import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
 
-import * as BranchCommand from './which/branch'
+import * as BranchCommand from './what/branch'
 
 export const execute = async () => {
     setExitCode(1)
@@ -15,7 +15,7 @@ export const execute = async () => {
 
         clearFlags()
         clearArgs()
-        args.push('which')
+        args.push('what')
         await executeHelp()
 
         return
@@ -24,9 +24,9 @@ export const execute = async () => {
     logger.error(string('command.github.invalidSubcommand'))
 }
 
-export const description = string('command.which.description')
+export const description = string('command.what.description')
 
-export const aliases = ['what']
+export const aliases = ['which']
 
 export const subcommands = {
     branch: BranchCommand,
