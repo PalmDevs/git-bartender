@@ -24,7 +24,7 @@ export const execute = async () => {
     logger.error(string('command.github.invalidSubcommand'))
 }
 
-export const description = string('command.github.description')
+export const description = string('command.which.description')
 
 export const aliases = ['what']
 

@@ -151,6 +151,7 @@ const STRINGS = {
             description: "Did you fuckin' stage .env? Remove that!",
         },
         which: {
+            description: chalkTemplate`Are you {italic really} dumb enough to not know info about the project you're literally working on?`,
             branch: {
                 description: chalkTemplate`Really? Did you {bold seriously} forget what branch you're working on? {italic Dumbass}.`,
                 action: (branch: string) =>
