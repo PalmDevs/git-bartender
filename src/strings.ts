@@ -150,6 +150,14 @@ const STRINGS = {
             action: "Pushed them off the stage. Sure hope files can't get hurt.",
             description: "Did you fuckin' stage .env? Remove that!",
         },
+        what: {
+            description: chalkTemplate`Are you {italic really} dumb enough to not know info about the project you're literally working on?`,
+            branch: {
+                description: chalkTemplate`Really? Did you {bold seriously} forget what branch you're working on? {italic Dumbass}.`,
+                action: (branch: string) =>
+                    chalkTemplate`Your current branch is {bold ${branch}}\nGet your shit together and remember it next time.`
+            }
+        },
         '[unknown]': {
             hint: [
                 chalkTemplate`You want a manual or something? Run the {underline help} command then.`,

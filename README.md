@@ -38,6 +38,8 @@ As long as something looks enough like a command, the bartender will <i>probably
 | unignore                | Unignoring your problems now? Good for you.                                  | u                      | `gb unignore [...patterns]`                                                                                      |
 | undo                    | Uncommits your commits because you have commitment issues.                   | ud                     | `gb undo [amount]`                                                                                               |
 | unstage                 | Did you fuckin' stage .env? Remove that!                                     | unadd, !add            | `gb unstage [...files]`                                                                                           |
+| what   | Are you _really_ dumb enough to not know info about the project you're literally working on? | which                   | `gb what <subcommand>`                                                                                           |
+| what branch          | Really? Did you **seriously** forget what branch you're working on? _Dumbass_. | which branch            | `gb what branch`                                                                                           |
 
 # ⏱️ Future Plans
 
