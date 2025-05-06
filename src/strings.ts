@@ -46,8 +46,6 @@ const STRINGS = {
                 action: (owner: string, repo: string) =>
                     chalkTemplate`Opening Actions page for ${owner}/${repo}. Hope your workflows fail.`,
             },
-            noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
-            invalidSubcommand: "That doesn't exist on the menu. Try again.",
             noActiveLocalBranch: [
                 'Are you not on a branch? What are you doing?',
                 "I haven't been trained to deal with this. No active brach?",
@@ -155,8 +153,8 @@ const STRINGS = {
             branch: {
                 description: chalkTemplate`Really? Did you {bold seriously} forget what branch you're working on? {italic Dumbass}.`,
                 action: (branch: string) =>
-                    chalkTemplate`Your current branch is {bold ${branch}}\nGet your shit together and remember it next time.`
-            }
+                    chalkTemplate`Your current branch is {bold ${branch}}\nGet your shit together and remember it next time.`,
+            },
         },
         '[unknown]': {
             hint: [
@@ -185,6 +183,8 @@ const STRINGS = {
             "Looks like it ain't workin' out. Last time I tried again, I got into deeper shit.",
         ],
         command: {
+            noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
+            invalidSubcommand: "That doesn't exist on the menu. Try again.",
             correctionConfirmation: (cmd: string) =>
                 chalkTemplate`Never heard someone pronounce it like that. Did you mean "{underline ${cmd}}"?`,
             placeholder: {
@@ -207,6 +207,8 @@ const STRINGS = {
     generic: {
         error: RandomizableStringifiable
         command: {
+            noSubcommand: string
+            invalidSubcommand: string
             correctionConfirmation: StringifableDynamic
             placeholder: {
                 description: string

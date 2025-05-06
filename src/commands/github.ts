@@ -11,7 +11,7 @@ export const execute = async () => {
     const [subcommand] = args
 
     if (!subcommand) {
-        logger.error(string('command.github.noSubcommand'))
+        logger.error(string('generic.command.noSubcommand'))
         logger.newline()
 
         clearFlags()
@@ -22,7 +22,7 @@ export const execute = async () => {
         return
     }
 
-    logger.error(string('command.github.invalidSubcommand'))
+    logger.error(string('generic.command.invalidSubcommand'))
 }
 
 export const description = string('command.github.description')
