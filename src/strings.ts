@@ -15,7 +15,7 @@ const STRINGS = {
     },
     command: {
         abort: {
-            description: `What ya mom should've done years ago. Aborts a stuck process.`,
+            description: `What ya mom should've done years ago. Abort a stuck process.`,
             action: {
                 merge: 'Aborted the merge. Conflicts much?',
                 rebase: 'Aborted the rebase. I guess the conflicts were too much for you, hah.',
@@ -90,7 +90,7 @@ const STRINGS = {
                 "Here you go. Hoping you won't need it again, I don't want to clean up the dust on it for you.",
                 "Either way, here's the manual, on what you can order me to do.",
             ],
-            description: 'Shows the manual, so I can deal with less bullshit from you.',
+            description: 'Show the manual, so I can deal with less bullshit from you.',
             subcommandsHeader: 'And here are the subcommands.',
             usagesHeader:
                 "And here's how to use the command, properly. Remember it, so I don't have to call out your bullshit next time.",
@@ -110,7 +110,7 @@ const STRINGS = {
                 chalkTemplateStderr`${pattern} is already ignored. Can't ignore something twice, can you?`,
         },
         list: {
-            description: 'Lists your files, and maybe your insecurities.',
+            description: 'List your files, and maybe your insecurities.',
             noArgs: 'So what do you want me to list exactly?',
             stagedHeader: "And here are the files you're going to commit. Nice job, I guess.",
             globHeader: (glob: string[]) => `Filter: ${glob.join(', ')}`,
@@ -138,7 +138,7 @@ const STRINGS = {
         },
         undo: {
             action: (amount: number) => `Uncommited the last ${amount} commits. Stop having commitment issues.`,
-            description: 'Uncommits your commits because you have commitment issues.',
+            description: 'Uncommit your commits because you have commitment issues.',
         },
         unignore: {
             description: 'Unignoring your problems now? Good for you.',
