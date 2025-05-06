@@ -2,12 +2,12 @@ import { $ } from 'bun'
 
 export async function remoteExists(remote: string) {
     const result = await $`git config remote.${remote}.url`.nothrow().quiet()
-    return result.exitCode === 0
+    return !result.exitCode
 }
 
 export async function localBranchExists(branch: string) {
     const result = await $`git show-ref refs/heads/${branch}`.nothrow().quiet()
-    return result.exitCode === 0
+    return !result.exitCode
 }
 
 export async function remoteBranchExists(remote: string, branch: string) {

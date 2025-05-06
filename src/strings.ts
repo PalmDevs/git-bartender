@@ -26,6 +26,12 @@ const STRINGS = {
             },
             notStuck: "You ain't stuck. What are you trying to abort?",
         },
+        addMissing: {
+            description: "Add missing files to the latest commit. You made a broken commit, didn't you?",
+            action: `Now the commit is less broken. They're added. You're welcome.`,
+            noFiles: 'You want to add what, exactly?',
+            addError: (err: string) => chalkTemplateStderr`Shit, something went wrong: ${err}`,
+        },
         discard: {
             description: "Wasted time on something that didn't work?",
             action: [
