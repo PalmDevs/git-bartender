@@ -1,10 +1,11 @@
-import { $ } from 'bun';
-import { string } from '../../strings';
-import { logger } from '../../context';
+import { string } from '../../strings'
+import { logger } from '../../context'
+import { getActiveBranch } from '../../utils/git'
 
 export const execute = async () => {
-    const branch = await $`git rev-parse --abbrev-ref HEAD`.text();
-    logger.info(string('command.what.branch.action', branch.trim()));
-};
+    const branch = await getActiveBranch()
+    if (!branch) return logger.error(string('command.what.branch.noActiveBranch'))
+    logger.info(string('command.what.branch.action', branch))
+}
 
-export const description = string('command.what.branch.description');
+export const description = string('command.what.branch.description')

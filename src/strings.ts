@@ -149,11 +149,12 @@ const STRINGS = {
             description: "Did you fuckin' stage .env? Remove that!",
         },
         what: {
-            description: chalkTemplate`Are you {italic really} dumb enough to not know info about the project you're literally working on?`,
+            description: chalkTemplate`Ya {italic really} dumb enough to not know what you're working on?`,
             branch: {
-                description: chalkTemplate`Really? Did you {bold seriously} forget what branch you're working on? {italic Dumbass}.`,
+                noActiveBranch: "How did you even...? There's no active branch.",
+                description: chalkTemplate`Figured only you would forget what branch you're working on...`,
                 action: (branch: string) =>
-                    chalkTemplate`Your current branch is {bold ${branch}}\nGet your shit together and remember it next time.`,
+                    chalkTemplate`Your current branch is {bold ${branch}}. Get your shit together and remember it next time.`,
             },
         },
         '[unknown]': {
