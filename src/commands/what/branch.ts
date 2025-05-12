@@ -4,7 +4,7 @@ import { getActiveBranch } from '../../utils/git'
 
 export const execute = async () => {
     const branch = await getActiveBranch()
-    if (!branch) return logger.error(string('command.what.branch.noActiveBranch'))
+    if (!branch) return logger.error(string('generic.branch.noActiveBranch'))
     logger.info(string('command.what.branch.action', branch))
 }
 
