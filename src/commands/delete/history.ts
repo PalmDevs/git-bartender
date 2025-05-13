@@ -23,6 +23,7 @@ export const execute = async () => {
     await $`git commit -m "chore: init"`
     await $`git branch -D ${oldBranch}`
     await $`git branch -m ${oldBranch}`
+    await $`git branch --set-upstream-to=origin/${oldBranch} ${oldBranch}`
 
     logger.info()
     logger.info(string('command.delete.history.action', oldBranch))

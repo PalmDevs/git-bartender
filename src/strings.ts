@@ -167,7 +167,7 @@ const STRINGS = {
             history: {
                 description: chalkTemplate`And just like with your... {italic addiction}, you gotta delete proof of your {strikethrough browser} commit history, huh?`,
                 action: (branch: string) =>
-                    chalkTemplate`Your commit history for the branch {bold ${branch}} is now gone. Use an incognito tab next time.`,
+                    chalkTemplate`Your commit history for the branch {bold ${branch}} is now gone. Remember to {bold force push} you dumbo, and use an incognito tab next time.`,
             },
         },
         '[unknown]': {
