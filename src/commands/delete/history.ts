@@ -1,7 +1,7 @@
 import { $ } from 'bun'
 import { logger } from '../../context'
 import { string } from '../../strings'
-import { getActiveBranch } from '../../utils/git'
+import { getActiveBranch, getBranchRemote } from '../../utils/git'
 
 const randomId = (length = 10): string => {
     let result = ''
@@ -23,7 +23,11 @@ export const execute = async () => {
     await $`git commit -m "chore: init"`
     await $`git branch -D ${oldBranch}`
     await $`git branch -m ${oldBranch}`
-    await $`git branch --set-upstream-to=origin/${oldBranch} ${oldBranch}`
+
+    const remote = await getBranchRemote(oldBranch)
+    if (remote) {
+        await $`git branch --set-upstream-to=${remote}/${oldBranch} ${oldBranch}`
+    }
 
     logger.info()
     logger.info(string('command.delete.history.action', oldBranch))
