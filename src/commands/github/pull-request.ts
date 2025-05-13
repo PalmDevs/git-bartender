@@ -1,6 +1,5 @@
-import { string } from '../../strings'
 import { args, logger, setExitCode } from '../../context'
-import { gitHubRepoOwnerAndNameFromRemote, openGitHubPullRequest } from '../../utils/github'
+import { string } from '../../strings'
 import {
     getActiveBranch,
     getBranchRemote,
@@ -9,6 +8,7 @@ import {
     remoteBranchExists,
     remoteExists,
 } from '../../utils/git'
+import { gitHubRepoOwnerAndNameFromRemote, openGitHubPullRequest } from '../../utils/github'
 
 export const execute = async () => {
     const [branches] = args

@@ -157,10 +157,17 @@ const STRINGS = {
         what: {
             description: chalkTemplate`Ya {italic really} dumb enough to not know what you're working on?`,
             branch: {
-                noActiveBranch: "How did you even...? There's no active branch.",
                 description: chalkTemplate`Figured only you would forget what branch you're working on...`,
                 action: (branch: string) =>
                     chalkTemplate`Your current branch is {bold ${branch}}. Get your shit together and remember it next time.`,
+            },
+        },
+        delete: {
+            description: 'Fucked up so hard you gotta delete something?',
+            history: {
+                description: chalkTemplate`And just like with your... {italic addiction}, you gotta delete proof of your {strikethrough browser} commit history, huh?`,
+                action: (branch: string) =>
+                    chalkTemplate`Your commit history for the branch {bold ${branch}} is now gone. Remember to {bold force push} you dumbo, and use an incognito tab next time.`,
             },
         },
         '[unknown]': {
@@ -198,6 +205,9 @@ const STRINGS = {
                 description: chalkTemplate`{italic (I have no idea what this command does)}`,
             },
         },
+        branch: {
+            noActiveBranch: "How did you even...? There's no active branch.",
+        },
     },
 } as const satisfies {
     product: {
@@ -220,6 +230,9 @@ const STRINGS = {
             placeholder: {
                 description: string
             }
+        }
+        branch: {
+            noActiveBranch: string
         }
     }
     command: Record<string, StringDict>

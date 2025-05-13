@@ -41,6 +41,8 @@ As long as something looks enough like a command, the bartender will <i>probably
 | unstage                 | Did you fuckin' stage .env? Remove that!                                      | unadd, !add            | `gb unstage [...files]`                                         |
 | what                    | Ya *really* dumb enough to not know what you're working on?                   | which                  | `gb what <subcommand>`                                          |
 | what branch             | Figured only you would forget what branch you're working on...                |                        | `gb what branch`                                                |
+| delete                  | Fucked up so hard you gotta delete something?                                 | del                    | `gb del`                                                        |
+| delete history          | And just like with your... _addiction_, you gotta delete proof of your ~~browser~~ commit history, huh? | del history            | `gb del history`                                                |
 
 # ⏱️ Future Plans
 
