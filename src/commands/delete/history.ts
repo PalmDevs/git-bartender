@@ -26,7 +26,7 @@ export const execute = async () => {
 
     const remote = await getBranchRemote(oldBranch)
     if (remote) {
-        await $`git branch --set-upstream-to=${remote}/${oldBranch} ${oldBranch}`
+        await $`git branch --set-upstream-to=${remote}/${oldBranch}`
     }
 
     logger.info()
