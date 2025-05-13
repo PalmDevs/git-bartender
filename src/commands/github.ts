@@ -1,6 +1,6 @@
-import { execute as executeHelp } from './help'
-import { string } from '../strings'
 import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
+import { string } from '../strings'
+import { execute as executeHelp } from './help'
 
 import * as ActionsCommand from './github/actions'
 import * as PullRequestCommand from './github/pull-request'

@@ -1,7 +1,7 @@
-import { string } from '../../strings'
 import { args, flags, logger, setExitCode } from '../../context'
-import { gitHubRepoOwnerAndNameFromRemote, openGitHubActions } from '../../utils/github'
+import { string } from '../../strings'
 import { getActiveBranch, getBranchRemote } from '../../utils/git'
+import { gitHubRepoOwnerAndNameFromRemote, openGitHubActions } from '../../utils/github'
 
 export const execute = async () => {
     const [workflow] = args.slice(1)

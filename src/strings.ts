@@ -207,7 +207,7 @@ const STRINGS = {
         },
         branch: {
             noActiveBranch: "How did you even...? There's no active branch.",
-        }
+        },
     },
 } as const satisfies {
     product: {
@@ -230,7 +230,7 @@ const STRINGS = {
             placeholder: {
                 description: string
             }
-        },
+        }
         branch: {
             noActiveBranch: string
         }

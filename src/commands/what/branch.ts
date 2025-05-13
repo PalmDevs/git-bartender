@@ -1,5 +1,5 @@
-import { string } from '../../strings'
 import { logger } from '../../context'
+import { string } from '../../strings'
 import { getActiveBranch } from '../../utils/git'
 
 export const execute = async () => {

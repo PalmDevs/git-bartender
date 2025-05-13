@@ -1,5 +1,5 @@
 import chalkTemplate from 'chalk-template'
-import { args, commands, isCommandAlias, isSubcommand, logger, setExitCode, type Command } from '../context'
+import { type Command, args, commands, isCommandAlias, isSubcommand, logger, setExitCode } from '../context'
 import { string } from '../strings'
 import { tryResolveCommand } from '../utils'
 

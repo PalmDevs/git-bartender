@@ -1,9 +1,9 @@
-import { string } from '../../strings'
-import { logger } from '../../context'
-import { getActiveBranch } from '../../utils/git'
 import { $ } from 'bun'
+import { logger } from '../../context'
+import { string } from '../../strings'
+import { getActiveBranch } from '../../utils/git'
 
-const randomId = (length: number = 10): string => {
+const randomId = (length = 10): string => {
     let result = ''
     const digits = '0123456789'
 
