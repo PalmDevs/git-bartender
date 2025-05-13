@@ -18,7 +18,7 @@ export const execute = async () => {
     const oldBranch = await getActiveBranch()
     if (!oldBranch) return logger.error(string('generic.branch.noActiveBranch'))
 
-    await $`git checkout -b ${randomId(16)}`
+    await $`git checkout --orphan ${randomId(16)}`
     await $`git add .`
     await $`git commit -m "chore: init"`
     await $`git branch -D ${oldBranch}`
