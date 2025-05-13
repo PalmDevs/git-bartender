@@ -18,13 +18,14 @@ export const execute = async () => {
     const oldBranch = await getActiveBranch()
     if (!oldBranch) return logger.error(string('generic.branch.noActiveBranch'))
 
+    const remote = await getBranchRemote(oldBranch)
+
     await $`git checkout --orphan ${randomId(16)}`
     await $`git add .`
     await $`git commit -m "chore: init"`
     await $`git branch -D ${oldBranch}`
     await $`git branch -m ${oldBranch}`
 
-    const remote = await getBranchRemote(oldBranch)
     if (remote) {
         await $`git branch --set-upstream-to=${remote}/${oldBranch}`
     }
