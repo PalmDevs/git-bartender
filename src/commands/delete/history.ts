@@ -26,11 +26,8 @@ export const execute = async () => {
     await $`git branch -D ${oldBranch}`.quiet()
     await $`git branch -m ${oldBranch}`.quiet()
 
-    if (remote) {
-        await $`git branch --set-upstream-to=${remote}/${oldBranch}`.quiet()
-    }
+    if (remote) await $`git branch --set-upstream-to=${remote}/${oldBranch}`.quiet()
 
-    logger.info()
     logger.info(string('command.delete.history.action', oldBranch))
 }
 
