@@ -1,5 +1,5 @@
-import { $ } from 'bun'
 import { existsSync } from 'fs'
+import { $ } from 'bun'
 
 import { logger, setExitCode } from '../context'
 import { string } from '../strings'

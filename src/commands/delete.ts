@@ -2,8 +2,7 @@ import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
 import { string } from '../strings'
 import { execute as executeHelp } from './help'
 
-import * as ActionsCommand from './github/actions'
-import * as PullRequestCommand from './github/pull-request'
+import * as DeleteHistoryCommand from './delete/history'
 
 export const execute = async () => {
     setExitCode(1)
@@ -16,7 +15,7 @@ export const execute = async () => {
 
         clearFlags()
         clearArgs()
-        args.push('github')
+        args.push('delete')
         await executeHelp()
 
         return
@@ -25,11 +24,10 @@ export const execute = async () => {
     logger.error(string('generic.command.invalidSubcommand'))
 }
 
-export const description = string('command.github.description')
+export const description = string('command.delete.description')
 
-export const aliases = ['gh']
+export const aliases = ['del']
 
 export const subcommands = {
-    actions: ActionsCommand,
-    'pull-request': PullRequestCommand,
+    history: DeleteHistoryCommand,
 }
