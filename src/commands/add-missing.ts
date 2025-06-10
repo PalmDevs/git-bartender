@@ -3,11 +3,11 @@ import { args, logger } from '../context'
 import { string } from '../strings'
 
 export const execute = async () => {
-    if (!args.length) return logger.error(string('command.addMissing.noFiles'))
-
-    const addResult = await $`git add ${args}`.quiet().nothrow()
-    if (addResult.exitCode)
-        return logger.error(string('command.addMissing.addError', addResult.stderr.toString().trim()))
+    if (args.length) {
+        const addResult = await $`git add ${args}`.quiet().nothrow()
+        if (addResult.exitCode)
+            return logger.error(string('command.addMissing.addError', addResult.stderr.toString().trim()))
+    } else logger.warn(string('command.addMissing.noFiles'))
 
     await $`git commit --amend --no-edit`.quiet()
 

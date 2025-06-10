@@ -29,7 +29,7 @@ const STRINGS = {
         addMissing: {
             description: "Add missing files to the latest commit. You made a broken commit, didn't you?",
             action: `Now the commit is less broken. They're added. You're welcome.`,
-            noFiles: 'You want to add what, exactly?',
+            noFiles: 'No files were added, so I guess you want to add already staged files?',
             addError: (err: string) => chalkTemplateStderr`Shit, something went wrong: ${err}`,
         },
         discard: {

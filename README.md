@@ -29,7 +29,7 @@ As long as something looks enough like a command, the bartender will <i>probably
 | ----------------------- | ----------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------- |
 | help                    | Shows the manual, so I can deal with less bullshit from you.                  | h                      | `gb help`  <br> `gb help [command]` <br> `gb help [alias]`      |
 | abort                   | What ya mom should've done years ago. Aborts a stuck process.                 | ab                     | `gb abort`                                                      |
-| add-missing             | Add missing files to the latest commit. You made a broken commit, didn't you? | addmissing, addm       | `gb add-missing <...files>`                                     |
+| add-missing             | Add missing files to the latest commit. You made a broken commit, didn't you? | addmissing, addm       | `gb add-missing [...files]`                                     |
 | discard                 | Wasted time on something that didn't work?                                    | explode, dc            | `gb discard`                                                    |
 | github                  | Things related to the Hub- shit. Walked myself right into that one.           | gh                     | `gb github <subcommand>`                                        |
 | github actions          | Just pushed your changes? Want to watch the deployment fail?                  | a, action              | `gb github actions` <br> `gb github actions [workflow]` <br> `gb github actions [workflow] --branch [branch]` <br> `gb github actions [workflow] -b [branch]` |
