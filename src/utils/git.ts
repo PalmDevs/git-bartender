@@ -21,6 +21,12 @@ export async function getActiveBranch() {
     return result.text().trim()
 }
 
+export async function getHeadCommit() {
+    const result = await $`git rev-parse HEAD`.nothrow().quiet()
+    if (result.exitCode) return null
+    return result.text().trim()
+}
+
 export async function getBranchRemote(branch: string) {
     const result = await $`git config --get branch.${branch}.remote`.nothrow().quiet()
     if (result.exitCode) return null

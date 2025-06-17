@@ -3,6 +3,7 @@ import { string } from '../strings'
 import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
 
 import * as BranchCommand from './what/branch'
+import * as CommitCommand from './what/commit'
 
 export const execute = async () => {
     setExitCode(1)
@@ -30,4 +31,5 @@ export const aliases = ['which']
 
 export const subcommands = {
     branch: BranchCommand,
+    commit: CommitCommand,
 }

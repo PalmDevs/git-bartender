@@ -160,7 +160,13 @@ const STRINGS = {
                 noActiveBranch: "How did you even...? There's no active branch.",
                 description: chalkTemplate`Figured only you would forget what branch you're working on...`,
                 action: (branch: string) =>
-                    chalkTemplate`Your current branch is {bold ${branch}}. Get your shit together and remember it next time.`,
+                    chalkTemplate`You're on {underline ${branch}}. Get your shit together and remember it next time.`,
+            },
+            commit: {
+                invalidLength: 'I can only trim the commit has from 1 to 40 characters.',
+                noCommit: "So you initialized an empty repository and expected me to know what commit you're on?",
+                description: "You don't know what commit you're on?",
+                action: (hash: string) => chalkTemplate`You're on {underline ${hash}}`,
             },
         },
         '[unknown]': {

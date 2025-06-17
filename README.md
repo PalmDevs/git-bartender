@@ -41,6 +41,7 @@ As long as something looks enough like a command, the bartender will <i>probably
 | unstage                 | Did you fuckin' stage .env? Remove that!                                      | unadd, !add            | `gb unstage [...files]`                                         |
 | what                    | Ya *really* dumb enough to not know what you're working on?                   | which                  | `gb what <subcommand>`                                          |
 | what branch             | Figured only you would forget what branch you're working on...                |                        | `gb what branch`                                                |
+| what commit             | You don't know what commit you're on?                                         | sha                    | `gb what commit` <br> `gb what commit -l <length>`              |
 
 # ⏱️ Future Plans
 
