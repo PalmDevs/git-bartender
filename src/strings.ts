@@ -52,6 +52,11 @@ const STRINGS = {
                 action: (owner: string, repo: string) =>
                     chalkTemplate`Opening Actions page for ${owner}/${repo}. Hope your workflows fail.`,
             },
+            repository: {
+                description: "Are you that lazy that you can't type out https://github.com?",
+                action: (owner: string, repo: string) =>
+                    chalkTemplate`Opening repository page for ${owner}/${repo}. Sure hope this project doesn't die too quickly.`,
+            },
             noActiveLocalBranch: [
                 'Are you not on a branch? What are you doing?',
                 "I haven't been trained to deal with this. No active brach?",

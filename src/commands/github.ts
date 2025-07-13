@@ -4,6 +4,7 @@ import { args, clearArgs, clearFlags, logger, setExitCode } from '../context'
 
 import * as ActionsCommand from './github/actions'
 import * as PullRequestCommand from './github/pull-request'
+import * as RepositoryCommand from './github/repository'
 
 export const execute = async () => {
     setExitCode(1)
@@ -31,5 +32,6 @@ export const aliases = ['gh']
 
 export const subcommands = {
     actions: ActionsCommand,
+    repository: RepositoryCommand,
     'pull-request': PullRequestCommand,
 }

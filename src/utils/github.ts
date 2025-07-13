@@ -29,6 +29,11 @@ export async function gitHubRepoOwnerAndNameFromRemote(remote: string) {
     return [owner, repoName] as const
 }
 
+export async function openGitHubRepository(owner: string, repo: string, branch?: string) {
+    const url = new URL(`https://github.com/${owner}/${repo}${branch ? `/tree/${branch}` : ''}`)
+    return open(url.toString())
+}
+
 export async function openGitHubActions(
     owner: string,
     repo: string,
