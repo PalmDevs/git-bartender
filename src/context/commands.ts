@@ -22,7 +22,7 @@ for (const node of readdirSync(COMMAND_DIR)) {
     if (statSync(`${COMMAND_DIR}/${node}`).isDirectory()) continue
 
     const name = fileNameToCommandName(node)
-    const cmd = require(`${COMMAND_DIR}/${node}`) as Command
+    const cmd = (await import(`${COMMAND_DIR}/${node}`)) as Command
     commands[name] = cmd
 
     if (cmd.aliases)
