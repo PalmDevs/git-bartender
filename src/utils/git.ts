@@ -1,5 +1,10 @@
 import { $ } from 'bun'
 
+export async function getRootDir() {
+    const result = await $`git rev-parse --show-toplevel`.nothrow().quiet()
+    return result.exitCode ? null : result.text().trim()
+}
+
 export async function getGitDirPath() {
     const result = await $`git rev-parse --git-dir`.nothrow().quiet()
     return result.exitCode ? null : result.text().trim()
