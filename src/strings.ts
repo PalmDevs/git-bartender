@@ -194,12 +194,17 @@ const STRINGS = {
             ],
         },
     },
-    generic: {
-        error: [
+    error: {
+        git: {
+            noRepo: "There's no repository.",
+        },
+        generic: [
             "Ugh, something went wrong. I don't know what, but it's definitely not my fault.",
             "You gotta be shittin' me. Well, somethin' exploded back there.",
             "Looks like it ain't workin' out. Last time I tried again, I got into deeper shit.",
         ],
+    },
+    generic: {
         command: {
             noSubcommand: "You're ordering a category instead of an item. Pick one of the subcommands.",
             invalidSubcommand: "That doesn't exist on the menu. Try again.",
@@ -222,8 +227,11 @@ const STRINGS = {
             tertiary: string
         }
     }
+    error: {
+        generic: RandomizableStringifiable
+        git: StringDict
+    }
     generic: {
-        error: RandomizableStringifiable
         command: {
             noSubcommand: string
             invalidSubcommand: string

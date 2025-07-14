@@ -2,11 +2,11 @@ import { $ } from 'bun'
 import { args, logger } from '../context'
 import { string } from '../strings'
 import { buildDirTree, printDirTree } from '../utils/dir-tree'
-import { parseGbGitignore, toGbGitignore } from '../utils/gitignore'
+import { gitignoreLocalFilePath, parseGbGitignore, toGbGitignore } from '../utils/gitignore'
 
 export const execute = async () => {
     if (!args.length) {
-        const gitignore = await $`cat .git/info/exclude`.quiet().then(it => it.text())
+        const gitignore = await $`cat ${gitignoreLocalFilePath}`.quiet().then(it => it.text())
         const patterns = parseGbGitignore(gitignore)
 
         logger.info(string('command.ignore.viewHeader'))
@@ -36,7 +36,7 @@ async function ignore(pattern: string) {
     const getFiles = await $`git ls-files --error-unmatch ${pattern}`.nothrow().quiet()
     const files = getFiles.text().trim().split('\n')
 
-    const gitignore = await $`cat .git/info/exclude`.quiet().then(it => it.text())
+    const gitignore = await $`cat ${gitignoreLocalFilePath}`.quiet().then(it => it.text())
     const patterns = parseGbGitignore(gitignore)
 
     if (patterns.includes(pattern)) {
@@ -50,7 +50,7 @@ async function ignore(pattern: string) {
         files,
         await Promise.all([
             getFiles.exitCode === 0 && $`git update-index --assume-unchanged ${files}`.quiet(),
-            $`echo ${toGbGitignore(gitignore, patterns)} > .git/info/exclude`.quiet(),
+            $`echo ${toGbGitignore(gitignore, patterns)} > ${gitignoreLocalFilePath}`.quiet(),
         ]),
     ] as const
 }

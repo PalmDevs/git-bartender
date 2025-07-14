@@ -72,7 +72,7 @@ async function gitBartender() {
         logger.debug(`Caught error (ignorable = ${Boolean(ignorable!)}):`, e)
         if (ignorable!) await executeUnknown()
         else {
-            logger.error(string('generic.error'))
+            logger.error(string('error.generic'))
             console.error(e)
         }
     }

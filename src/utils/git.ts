@@ -1,5 +1,10 @@
 import { $ } from 'bun'
 
+export async function getGitDirPath() {
+    const result = await $`git rev-parse --git-dir`.nothrow().quiet()
+    return result.exitCode ? null : result.text().trim()
+}
+
 export async function remoteExists(remote: string) {
     const result = await $`git config remote.${remote}.url`.nothrow().quiet()
     return !result.exitCode

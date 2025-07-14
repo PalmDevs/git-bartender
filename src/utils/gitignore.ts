@@ -1,4 +1,8 @@
+import { getGitDirPath } from './git'
+
 const GB_GITIGNORE_HEADER = '# git-bartender-ignore'
+
+export const gitignoreLocalFilePath = `${await getGitDirPath()}/info/exclude`
 
 export function parseGbGitignore(gitignore: string) {
     const lines = gitignore.split('\n')
