@@ -6,7 +6,7 @@ export function buildDirTree(paths: string[]): DirTreeNode {
     const root: DirTreeNode = {}
 
     for (const path of paths) {
-        const parts = path.split('/')
+        const parts = path.split(/[\\/]/)
         let current = root
 
         for (let i = 0; i < parts.length; i++) {
@@ -35,3 +35,4 @@ export function printDirTree(tree: DirTreeNode, prefix = '', root = true): void 
         }
     })
 }
+//a
